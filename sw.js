@@ -1,4 +1,4 @@
-var cacheName = '440hz';
+var cacheName = '440hzCache';
 var filesToCache = [
     '/',
     '/index.html',
