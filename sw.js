@@ -1,5 +1,7 @@
 var cacheName = '440hzCache';
 var filesToCache = [
+    '',
+    'index.html',
     'main.css'
 ];
 self.addEventListener('install', function (e) {
