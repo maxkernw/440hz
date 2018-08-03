@@ -15,11 +15,15 @@
     oscillator.type = 'sine';
     oscillator.frequency.setValueAtTime(hertz, audioCtx.currentTime);
     oscillator.connect(audioCtx.destination);
-    oscillator.start();
+    const start = () => oscillator.start();
+    const stop = () => oscillator.stop();
+
 </script>
 
 <body>
+        <button onclick="start()">Start</button>
+        <button onclick="stop()">Stöp</button>
 
-</body>
+    </body>
 
 </html>
