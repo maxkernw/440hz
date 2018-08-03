@@ -3,27 +3,52 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<script>
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const hertz = 440;
-    const oscillator = audioCtx.createOscillator();
+    <title>Hörtz</title>
+    <link rel="stylesheet" type="text/css" href="main.css" media="all">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#db5945">
 
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(hertz, audioCtx.currentTime);
-    oscillator.connect(audioCtx.destination);
-    const start = () => oscillator.start();
-    const stop = () => oscillator.stop();
+</head>
+
+<script>
+
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const hertz = 440;
+    let oscillator = null;
+    let started = false;
+
+    const toggle = () => {
+        started = !started;
+        document.querySelector("button").textContent = started ? "Stop" : "Start"
+
+        if (started) {
+            oscillator = ctx.createOscillator();
+            oscillator.frequency.setValueAtTime(hertz, ctx.currentTime);
+            oscillator.type = 'sine';
+            oscillator.start();
+            oscillator.connect(ctx.destination);
+        }
+        else {
+            oscillator.disconnect(ctx.destination);
+            oscillator = null
+
+        }
+    }
 
 </script>
 
 <body>
-        <button onclick="start()">Start</button>
-        <button onclick="stop()">Stöp</button>
-
-    </body>
+    <button onclick="toggle()">Start</button>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(function () {
+                    console.log('Service Worker Registered');
+                });
+        }
+    </script>
+</body>
 
 </html>
