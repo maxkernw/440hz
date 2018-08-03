@@ -1,6 +1,6 @@
 var cacheName = '440hzCache';
 var filesToCache = [
-    '/main.css'
+    'main.css'
 ];
 self.addEventListener('install', function (e) {
     console.log('[ServiceWorker] Install');
