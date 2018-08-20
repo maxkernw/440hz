@@ -1,25 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Hörtz</title>
+    <link rel="stylesheet" type="text/css" href="main.css" media="all">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#db5945">
+    <meta name="description" content="Skriv att det är innovativ app som bryter ny mark när det kommer till tonen">
 </head>
+
 <script>
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    const oscillator = audioCtx.createOscillator();
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const hertz = 440;
+    let oscillator = null;
+    let started = false;
 
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // value in hertz
-    oscillator.connect(audioCtx.destination);
-    oscillator.start();
+    const toggle = () => {
+        started = !started;
+        document.querySelector("button").textContent = started ? "Stop" : "Start"
+
+        if (started) {
+            oscillator = ctx.createOscillator();
+            oscillator.frequency.setValueAtTime(hertz, ctx.currentTime);
+            oscillator.type = 'sine';
+            oscillator.start();
+            oscillator.connect(ctx.destination);
+        }
+        else {
+            oscillator.disconnect(ctx.destination);
+            oscillator = null
+
+        }
+    }
+
 </script>
 
 <body>
-
+    <button onclick="toggle()">Start</button>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(function () {
+                    console.log('Service Worker Registered');
+                });
+        }
+    </script>
 </body>
 
 </html>
