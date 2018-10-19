@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,8 +13,7 @@
 </head>
 
 <script>
-
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = new(window.AudioContext || window.webkitAudioContext)();
     const hertz = 440;
     let oscillator = null;
     let started = false;
@@ -28,14 +28,12 @@
             oscillator.type = 'sine';
             oscillator.start();
             oscillator.connect(ctx.destination);
-        }
-        else {
+        } else {
             oscillator.disconnect(ctx.destination);
             oscillator = null
 
         }
     }
-
 </script>
 
 <body>
@@ -48,6 +46,7 @@
                 });
         }
     </script>
+    <h1>FAN DET FUNKAR JU!</h1>
 </body>
 
 </html>
